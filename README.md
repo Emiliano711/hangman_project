@@ -13,12 +13,12 @@ El objetivo es adivinar una palabra o frase oculta escribiendo letras una por un
 ## ¿Cómo organizamos los archivos?
 Dividimos el código en varias partes para que sea más fácil de ordenar:
 - `main.py`: Es el archivo principal, el que usamos para arrancar el juego.
-- `game.py`: Acá guardamos las reglas y cómo funciona el juego por dentro.
-- `utils.py`: Tiene funciones de ayuda (por ejemplo, la función que lee el archivo de texto y elige una palabra al azar).
-- `wordlist.txt`: Es un archivito de texto donde anotamos las palabras que se van a usar (una por renglón).
+- `game.py`: Acá guardamos las reglas y cómo funciona el juego por dentro (gestiona los intentos y el estado del juego).
+- `utils.py`: Tiene funciones de ayuda (por ejemplo, la función que lee el archivo de texto y elige una palabra al azar). Incluye `get_random_word()`, encargada de leer el archivo de texto, limpiar los espacios en blanco de forma segura y seleccionar una palabra aleatoria mediante el módulo `random`.
+- `wordlist.txt`: Es un archivo de texto donde anotamos las palabras que se van a usar (una por renglón).
 
 ## ¿Cómo se juega?
-Para probarlo, abres la terminal en la carpeta del proyecto y escribes este comando:
+Para probarlo, abres la terminal en la carpeta del proyecto (Asegúrate de tener Python instalado en tu entorno) y escribes este comando:
 
 ```bash
 python main.py
