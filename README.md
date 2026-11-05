@@ -19,7 +19,5 @@ Dividimos el código en varias partes para que sea más fácil de ordenar:
 - `wordlist.txt`: Es un archivo de texto donde anotamos las palabras que se van a usar (una por renglón).
 
 ## ¿Cómo se juega?
-Para probarlo, abres la terminal en la carpeta del proyecto (Asegúrate de tener Python instalado en tu entorno) y escribes este comando:
 
-```bash
-python main.py
+
