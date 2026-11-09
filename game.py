@@ -1,12 +1,25 @@
 from utils import get_random_word
 
 class HangmanGame:
-    def __init__(self, word=None):
+    def __init__(self, word=None, difficulty=None):
         # Si no se pasa una palabra, usamos get_random_word() por defecto
-        self.word = word if word else get_random_word()
+        self.word = word if word else get_random_word(difficulty=difficulty)
         self.guessed_letters = []
         self.max_errors = 6
         self.errors = 0
+
+    def display_hangman(self):
+        """Devuelve el dibujo del ahorcado correspondiente a los errores."""
+        stages = [
+            "  +---+\n  |   |\n      |\n      |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n      |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n  |   |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|   |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\\  |\n      |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\\  |\n /    |\n      |\n=========",
+            "  +---+\n  |   |\n  O   |\n /|\\  |\n / \\  |\n      |\n=========",
+        ]
+        return stages[min(self.errors, self.max_errors)]
 
     def display_progress(self):
         """
@@ -16,13 +29,25 @@ class HangmanGame:
         progress = []
         for char in self.word:
             # Si el caracter es un espacio u otro símbolo, o si ya fue adivinado:
-            if char in self.guessed_letters or not char.isalpha():
+            if char.lower() in self.guessed_letters or not char.isalpha():
                 progress.append(char)
             else:
                 progress.append("_")
         
         # Unimos todo con espacios para que se vea prolijo
         return " ".join(progress)
+
+    def is_won(self):
+        """Indica si todas las letras de la palabra fueron adivinadas."""
+        return all(
+            not char.isalpha() or char.lower() in self.guessed_letters
+            for char in self.word
+        )
+
+    def is_lost(self):
+        """Indica si se alcanzó el máximo de errores permitidos."""
+        return self.errors >= self.max_errors
+
     def process_guess(self, letter): 
         """
         Procesa la letra adivinada por el jugador.
