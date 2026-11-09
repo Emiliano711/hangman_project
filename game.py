@@ -23,3 +23,23 @@ class HangmanGame:
         
         # Unimos todo con espacios para que se vea prolijo
         return " ".join(progress)
+    def process_guess(self, letter): 
+        """
+        Procesa la letra adivinada por el jugador.
+        Si la letra ya fue adivinada, no hace nada.
+        Si la letra está en la palabra, se agrega a guessed_letters.
+        Si no está, se incrementa el contador de errores.
+        """
+        letter = letter.lower()
+        is_correct = letter in self.word.lower()
+
+        if letter in self.guessed_letters:
+            return is_correct  # Ya fue adivinada, no hacemos nada
+
+        self.guessed_letters.append(letter)
+
+        if not is_correct:
+            self.errors += 1  # Incrementamos errores si la letra no está en la palabra 
+
+        return is_correct
+    
