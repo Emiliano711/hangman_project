@@ -8,13 +8,6 @@ DIFFICULTY_RANGES = {
     "dificil": (9, None),
 }
 
-FALLBACK_WORDS = {
-    "facil": "gato",
-    "medio": "python",
-    "dificil": "programacion",
-}
-
-
 def get_random_word(filepath="wordlist.txt", difficulty=None):
     """
     Lee las palabras del archivo y devuelve una al azar, opcionalmente
@@ -25,21 +18,35 @@ def get_random_word(filepath="wordlist.txt", difficulty=None):
         wordlist_path = Path(__file__).parent / wordlist_path
 
     with wordlist_path.open("r", encoding="utf-8") as file:
-        words = [line.strip() for line in file if line.strip()]
+        words = [
+            line.strip()
+            for line in file
+            if line.strip().isalpha()
+        ]
 
-    if difficulty is None:
-        return random.choice(words) if words else "ahorcado"
+    if not words:
+        raise ValueError(
+            f"No hay palabras compuestas solo por letras en '{wordlist_path}'."
+        )
 
-    min_length, max_length = DIFFICULTY_RANGES[difficulty]
-    matching_words = [
-        word for word in words
-        if sum(char.isalpha() for char in word) >= min_length
-        and (max_length is None or sum(char.isalpha() for char in word) <= max_length)
-    ]
+    if difficulty is not None:
+        if difficulty not in DIFFICULTY_RANGES:
+            raise ValueError(f"Dificultad no válida: '{difficulty}'.")
 
-    if matching_words:
-        return random.choice(matching_words)
-    return FALLBACK_WORDS[difficulty]
+        min_length, max_length = DIFFICULTY_RANGES[difficulty]
+        words = [
+            word for word in words
+            if min_length <= len(word)
+            and (max_length is None or len(word) <= max_length)
+        ]
+
+        if not words:
+            raise ValueError(
+                f"No hay palabras válidas para la dificultad '{difficulty}' "
+                f"en '{wordlist_path}'."
+            )
+
+    return random.choice(words)
 
 
 def save_score(player, difficulty, result, score, filepath="scores.csv"):

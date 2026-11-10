@@ -19,8 +19,7 @@ Dividimos el código en varias partes para que sea más fácil de ordenar:
 - `game.py`: Acá guardamos las reglas y cómo funciona el juego por dentro (gestiona los intentos y el estado del juego).
              Contiene la clase HangmanGame que gestiona el estado central de la partida (palabra, letras adivinadas, límite de 6 errores) e incluye el método display_progress() para mostrar el progreso actual del tablero con guiones bajos.
 - `utils.py`: Tiene funciones de ayuda (por ejemplo, la función que lee el archivo de texto y elige una palabra al azar). Incluye `get_random_word()`, encargada de leer el archivo de texto, limpiar los espacios en blanco de forma segura y seleccionar una palabra aleatoria mediante el módulo `random`.
-- `wordlist.txt`: Es un archivo de texto donde anotamos las palabras que se van a usar (una por renglón).
+- `wordlist.txt`: Es la fuente de palabras del juego. Agrega una palabra por línea usando únicamente letras; las dificultades necesitan palabras de 1–5, 6–8 y 9 o más letras, respectivamente. Si el archivo no contiene palabras válidas para el nivel elegido, el programa informa el problema en lugar de sustituir la palabra.
 - `scores.csv`: Se crea automáticamente para guardar las puntuaciones de las partidas.
 
 ## ¿Cómo se juega?
-

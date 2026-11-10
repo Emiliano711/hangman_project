@@ -1,0 +1,15 @@
+sol
+gato
+perro
+casa
+libro
+ventana
+caballo
+escuela
+planeta
+teclado
+computadora
+programacion
+murcielago
+arquitectura
+universidad

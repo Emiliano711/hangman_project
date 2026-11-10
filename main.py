@@ -20,7 +20,12 @@ def choose_difficulty():
 
 def play_game(player):
     difficulty = choose_difficulty()
-    game = HangmanGame(difficulty=difficulty)
+    try:
+        game = HangmanGame(difficulty=difficulty)
+    except ValueError as error:
+        print(f"No se pudo iniciar la partida: {error}")
+        return
+
     print(f"\n¡Comienza una partida de dificultad {difficulty}!")
     print(game.display_hangman())
 
